@@ -113,29 +113,27 @@
         }
 
         .input-group {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
+            position: relative;
+        }
 
-input[type="text"] {
-    padding-right: 30px; /* Make space for the clear button */
-    width: 100%;
-}
+        input[type="text"] {
+            padding-right: 30px; /* Make space for the clear button */
+            width: 100%;
+        }
 
-.clear-btn {
-    position: absolute;
-    right: 12px;
-    top: 17px;
-    cursor: pointer;
-    font-size: 18px;
-    color: #aaa;
-    display: none; /* Initially hidden */
-}
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 17px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #aaa;
+            display: none; /* Initially hidden */
+        }
 
-.clear-btn:hover {
-    color: #000;
-}
+        .clear-btn:hover {
+            color: #000;
+        }
 
 
         @media (max-width: 768px) {
@@ -157,7 +155,7 @@ input[type="text"] {
 </div>
 
 <div id="mainContent">
-    <div id="functions" class="container">
+    <div class="container" id="functions">
         <h2>Add or Delete Celestial Object</h2>
         <div class="input-group">
             <label for="locationSelect"></label>
@@ -166,21 +164,21 @@ input[type="text"] {
                 <option value="planet">Planet</option>
             </select>
         </div>
-        <div id="inputContainer" class="input-group"></div>
+        <div class="input-group" id="inputContainer"></div>
         <div class="input-group">
             <label for="deleteInput"></label>
-            <input type="text" id="deleteInput" placeholder="Enter ID for celestial body to be deleted">
+            <input id="deleteInput" placeholder="Enter ID for celestial body to be deleted" type="text">
         </div>
         <div class="input-group">
             <button id="deleteButton" onclick="deleteCelestial()">Delete</button>
         </div>
     </div>
 
-    <div id="searchPanel" class="container">
+    <div class="container" id="searchPanel">
         <h2>Search Celestial Object</h2>
         <div class="input-group">
             <label for="searchPlanetInput"></label>
-            <input type="text" id="searchPlanetInput" placeholder="Enter Planet Name or ID">
+            <input id="searchPlanetInput" placeholder="Enter Planet Name or ID" type="text">
             <span class="clear-btn" id="clearSearchPlanetInput">x</span>
         </div>
         <div class="input-group">
@@ -189,7 +187,7 @@ input[type="text"] {
         </div>
         <div class="input-group">
             <label for="searchMoonInput"></label>
-            <input type="text" id="searchMoonInput" placeholder="Enter Moon Name or ID">
+            <input id="searchMoonInput" placeholder="Enter Moon Name or ID" type="text">
             <span class="clear-btn" id="clearSearchMoonInput">x</span>
         </div>
         <div class="input-group">
@@ -197,7 +195,7 @@ input[type="text"] {
         </div>
     </div>
 
-    <div id="celestialTableContainer" class="container">
+    <div class="container" id="celestialTableContainer">
         <h2>Celestial Table</h2>
         <table id="celestialTable">
             <tr>
