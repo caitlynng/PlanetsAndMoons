@@ -37,7 +37,6 @@ public class HomePage {
     @FindBy(id = "searchMoonButton")
     private WebElement searchMoonButton;
 
-
     @FindBy(id = "inputContainer")
     private WebElement inputContainer;
 
@@ -107,6 +106,14 @@ public class HomePage {
 
     public void clickSearchPlanetButton() {
         searchPlanetButton.click();
+    }
+
+    public void clickSearchMoonButton() {
+        searchMoonButton.click();
+    }
+
+    public void enterSearchMoonInput(String input) {
+        searchMoonInput.sendKeys(input);
     }
 
     public boolean isPlanetInTable(String bodyName) {
