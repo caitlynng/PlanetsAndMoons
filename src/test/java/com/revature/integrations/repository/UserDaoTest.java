@@ -1,4 +1,4 @@
-package com.revature.integrations;
+package com.revature.integrations.repository;
 
 import com.revature.models.User;
 import com.revature.models.UsernamePasswordAuthentication;

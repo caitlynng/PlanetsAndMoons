@@ -1,4 +1,4 @@
-package com.revature.integrations;
+package com.revature.integrations.repository;
 
 import com.revature.models.Moon;
 import com.revature.repository.MoonDao;
