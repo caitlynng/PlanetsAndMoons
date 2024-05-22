@@ -20,3 +20,11 @@ create table moons(
 	name varchar(20),
 	myPlanetId int references planets(id)
 );
+
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS moons;
+DROP TABLE IF EXISTS planets;
+
+SELECT * FROM users;
+SELECT * FROM planets;
+SELECT * FROM moons;
