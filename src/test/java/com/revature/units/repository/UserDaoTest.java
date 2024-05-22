@@ -40,12 +40,15 @@ public class UserDaoTest {
 
     @AfterAll
     public static void tearDownClass() {
-//        connectionUtil.close();
+        connectionUtil.close();
     }
 
     @BeforeEach
     public void setUp() throws SQLException {
         connection = Mockito.mock(Connection.class);
+        ps = Mockito.mock(PreparedStatement.class);
+        resultSet = Mockito.mock(ResultSet.class);
+
         connectionUtil.when(ConnectionUtil::createConnection).thenReturn(connection);
     }
 
@@ -56,14 +59,13 @@ public class UserDaoTest {
     }
 
     @Test
+    @DisplayName("UserDao::CreateUser - success")
     public void testCreateUserPositive() throws SQLException {
 
-        ps = Mockito.mock(PreparedStatement.class);
         when(connection.prepareStatement(anyString(), anyInt())).thenReturn(ps);
         doNothing().when(ps).setString(anyInt(), anyString());
         when(ps.executeUpdate()).thenReturn(1);
 
-        resultSet = Mockito.mock(ResultSet.class);
         when(ps.getGeneratedKeys()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(Boolean.TRUE);
         when(resultSet.getInt(anyInt())).thenReturn(userId);
@@ -88,13 +90,12 @@ public class UserDaoTest {
     }
 
     @Test
+    @DisplayName("UserDao::CreateUser - failure")
     public void testCreateUserNegative() throws SQLException {
-        ps = Mockito.mock(PreparedStatement.class);
         when(connection.prepareStatement(anyString(), anyInt())).thenReturn(ps);
         doNothing().when(ps).setString(anyInt(), anyString());
         when(ps.executeUpdate()).thenReturn(1);
 
-        resultSet = Mockito.mock(ResultSet.class);
         when(ps.getGeneratedKeys()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(Boolean.FALSE);
 
@@ -115,12 +116,11 @@ public class UserDaoTest {
     }
 
     @Test
+    @DisplayName("UserDao::GetUserByUsername - success")
     public void testGetUserByUsernamePositive() throws SQLException {
-        ps = Mockito.mock(PreparedStatement.class);
         when(connection.prepareStatement(anyString())).thenReturn(ps);
         doNothing().when(ps).setString(anyInt(), anyString());
 
-        resultSet = Mockito.mock(ResultSet.class);
         when(ps.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(Boolean.TRUE);
         when(resultSet.getInt(anyString())).thenReturn(userId);
@@ -147,6 +147,7 @@ public class UserDaoTest {
     }
 
     @Test
+    @DisplayName("UserDao::GetUserByUsername - failure")
     public void testGetUserByUsernameNegative() throws SQLException {
         ps = Mockito.mock(PreparedStatement.class);
         when(connection.prepareStatement(anyString())).thenReturn(ps);
