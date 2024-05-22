@@ -121,7 +121,7 @@ public class PlanetDao {
         try (Connection connection = ConnectionUtil.createConnection()) {
             // Check if the planet exists for the given ownerId and planetId
             Planet existingPlanet = getPlanetById(ownerId, planetId);
-            System.out.println("exisiting planet " + existingPlanet);
+//            System.out.println("exisiting planet " + existingPlanet);
             if (existingPlanet != null) {
                 // Construct SQL query to delete associated moons if present
                 String deleteMoonsSql = "DELETE FROM moons WHERE myPlanetId = ?";
