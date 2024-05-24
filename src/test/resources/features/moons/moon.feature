@@ -11,7 +11,7 @@ Feature:Moon Management
     And the Moon option is selected in the location select
     When the user enters <moonName> and planet ID of the <planetName> in the moon add input
     And clicks the submit moon button
-    Then the moon name <moonName> should be added successfully to the Celestial Table
+    Then the moon name <moonName> should be shown in the Celestial Table
 
     Examples:
       | planetName   | moonName     |
@@ -56,8 +56,28 @@ Feature:Moon Management
     Then an error should be displayed for Moon Deleting Error
 
     Examples:
-      | moonName     |
-      | "saturn"     |
-      | ""           |
-      | "1000000000" |
+      | moonName |
+      | ""       |
+      | "-1"     |
+
+  Scenario Outline: Search Moon - Valid
+    Given the moon name <moonName> already exists
+    When the user enters <moonName> in the search moon input
+    And clicks the search moon button
+    Then the moon name <moonName> should be shown in the Celestial Table
+
+    Examples:
+      | moonName |
+      | "demos"  |
+      | "uropa"  |
+
+  Scenario Outline: Search Moon - Invalid
+    When the user enters <moonName> in the search moon input
+    And clicks the search moon button
+    Then an error should be displayed for No Moon Found Error
+
+    Examples:
+      | moonName                   |
+      | "NonExistentMoon"          |
+      | "moon'; DROP TABLE moons;" |
 

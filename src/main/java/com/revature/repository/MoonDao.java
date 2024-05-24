@@ -112,7 +112,7 @@ public class MoonDao {
         return null; // Failed to create moon
     }
 
-    private boolean isPlanetExist(Connection connection, int planetId) throws SQLException {
+    public boolean isPlanetExist(Connection connection, int planetId) throws SQLException {
         String sql = "SELECT COUNT(*) FROM planets WHERE id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, planetId);

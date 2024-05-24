@@ -119,7 +119,7 @@ public class MoonStepDefinitions {
             homePage.enterPlanetNameAddInput(planetName);
             homePage.clickSubmitPlanetButton();
         }
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
     }
 
     @And("the Moon option is selected in the location select")
@@ -145,12 +145,13 @@ public class MoonStepDefinitions {
     @And("clicks the submit moon button")
     public void clicksTheSubmitMoonButton() throws InterruptedException {
         homePage.clickSubmitMoonButton();
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
     }
 
-    @Then("the moon name {string} should be added successfully to the Celestial Table")
-    public void theMoonNameMoonNameShouldBeAddedSuccessfullyToTheCelestialTable(String moonName) {
+    @Then("the moon name {string} should be shown in the Celestial Table")
+    public void theMoonNameMoonNameShouldBeAddedSuccessfullyToTheCelestialTable(String moonName) throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        Thread.sleep(1000);
         assertTrue(homePage.isPlanetInTable(moonName.trim().toLowerCase()));
     }
 
@@ -181,7 +182,7 @@ public class MoonStepDefinitions {
 
     @Then("the alert should be displayed for Moon {string} Deleted Successfully")
     public void theAlertShouldBeDisplayedForMoonMoonNameDeletedSuccessfully(String moonName) throws InterruptedException {
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         String alertText = wait.until(ExpectedConditions.alertIsPresent()).getText();
         assertTrue(alertText.contains("Deleted moon with ID"), "Delete success alert not displayed");
@@ -195,6 +196,25 @@ public class MoonStepDefinitions {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         String alertText = wait.until(ExpectedConditions.alertIsPresent()).getText();
         assertTrue(alertText.contains("Failed"), "Error alert not displayed");
+        driver.switchTo().alert().accept();
+    }
+
+    @When("the user enters {string} in the search moon input")
+    public void theUserEntersMoonNameInTheSearchMoonInput(String moonName) {
+        homePage.enterSearchMoonInput(moonName.trim().toLowerCase());
+    }
+
+    @And("clicks the search moon button")
+    public void clicksTheSearchMoonButton() {
+        homePage.clickSearchMoonButton();
+    }
+
+    @Then("an error should be displayed for No Moon Found Error")
+    public void anErrorShouldBeDisplayedForNoMoonFoundError() {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        String alertText = wait.until(ExpectedConditions.alertIsPresent()).getText();
+        assertTrue(alertText.contains("No moon found"), "Error alert not displayed");
         driver.switchTo().alert().accept();
     }
 }

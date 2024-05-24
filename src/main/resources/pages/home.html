@@ -3,9 +3,8 @@
 <head>
     <title>Home</title>
     <style>
-        /* CSS styles for the table, select, and input */
         body {
-            background-color: #f2f2f2;
+            background-color: #3d348b;
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -13,51 +12,95 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
+            padding: 0 1em;
+            background-image: url('https://wallpapers-clan.com/wp-content/uploads/2023/12/alien-planet-landscape-space-desktop-wallpaper-preview.jpg');
+            background-size: cover;
+            background-position: center;
         }
 
         h1 {
             color: #333;
         }
 
-       #header {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    width: 100%;
-    max-width: 1200px;
-    padding: 10px 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    box-sizing: border-box;
-}
+        input::placeholder {
+            font-style: italic;
+        }
 
-#logoutButton {
-    padding: 5px 10px;
-    font-size: 0.8em;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    max-width: 5em;
-}
+        #header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: baseline;
+            width: 100%;
+            max-width: 1180px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            height: 90px;
+        }
 
+        #header h2 {
+            font-size: 12px;
+            margin: 0;
+        }
 
-        #logoutButton:hover {
-            background-color: #0056b3;
+        #greeting {
+            margin-top: 3em;
+            margin-bottom: 0;
+            color: #fff;
         }
 
         #mainContent {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             width: 100%;
             max-width: 1200px;
-            padding: 0 20px;
+            padding: 0;
             box-sizing: border-box;
+            flex-grow: 1;
         }
 
-        #functions, #searchPanel {
+        #searchPanel {
+            max-height: 15em;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            max-width: 1180px;
+        }
+
+        .search-group {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .search-group input {
+            margin-right: 10px;
+            width: auto;
+        }
+
+        #searchMoonInput {
+            margin-left: 10px;
+        }
+
+        .search-group button {
+            width: auto;
+        }
+
+        #bottomContent {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0;
+            box-sizing: border-box;
+            flex-grow: 1;
+        }
+
+        #functions {
             flex: 1;
             max-width: 33%;
             padding: 20px;
@@ -65,47 +108,88 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin: 10px;
+            box-sizing: border-box;
+            height: min-content;
         }
 
         #celestialTableContainer {
             flex: 2;
-            padding: 20px;
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin: 10px;
-            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
         th, td {
-            padding: 8px;
-            text-align: left;
+            padding: 15px;
+            text-align: center; /* Center align text */
             border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #3d348b;
+            color: white;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
+        td {
+            font-size: 14px;
+            color: #333;
+        }
+
+        #celestialTableContainer table th:nth-child(3),
+        #celestialTableContainer table td:nth-child(3) {
+            width: 40%; /* Allocate more space to the 'Name' column */
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
         }
 
         select, input, button {
             padding: 10px;
             margin-top: 10px;
-            width: 100%;
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
+            min-width: 8em;
         }
 
         .submit-button, #deleteButton, #searchPlanetButton, #searchMoonButton {
-            background-color: #007BFF;
+            background-color: #3d348b;
             color: #fff;
             border: none;
             cursor: pointer;
+            width: 8em;
         }
 
         .submit-button:hover, #deleteButton:hover, #searchPlanetButton:hover, #searchMoonButton:hover {
-            background-color: #0056b3;
+            background-color: #b8b8ff;
+            color: #3d348b;
+        }
+
+        #logoutButton {
+            padding: 5px 10px;
+            font-size: 0.8em;
+            color: black;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 10px;
+            background-color: #b8b8ff;
+        }
+
+        #logoutButton:hover {
+            background-color: #fee440;
         }
 
         .container h2 {
@@ -113,33 +197,39 @@
         }
 
         .input-group {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
 
-input[type="text"] {
-    padding-right: 30px; /* Make space for the clear button */
-    width: 100%;
-}
+        input[type="text"] {
+            padding-right: 30px;
+            width: 100%;
+        }
 
-.clear-btn {
-    position: absolute;
-    right: 12px;
-    top: 17px;
-    cursor: pointer;
-    font-size: 18px;
-    color: #aaa;
-    display: none; /* Initially hidden */
-}
+        .clear-btn {
+            position: absolute;
+            right: 12px;
+            top: 17px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #aaa;
+            display: none;
+        }
 
-.clear-btn:hover {
-    color: #000;
-}
+        .clear-btn:hover {
+            color: #000;
+        }
 
+        .select-group {
+            display: flex;
+            gap: 1em;
+            align-items: baseline;
+        }
 
         @media (max-width: 768px) {
-            #mainContent {
+            #bottomContent {
                 flex-direction: column;
             }
 
@@ -147,73 +237,109 @@ input[type="text"] {
                 max-width: 100%;
                 margin: 10px 0;
             }
+
+            .search-group {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+
+            .search-group input, .search-group button {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th, td {
+                padding: 10px;
+                text-align: right;
+            }
+
+            th::before, td::before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            tr {
+                margin-bottom: 15px;
+            }
+
+            th {
+                background-color: #3d348b;
+                color: white;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                font-size: 12px;
+                text-align: right;
+            }
+
+            td {
+                font-size: 12px;
+                text-align: right;
+            }
         }
+
     </style>
 </head>
 <body>
 <div id="header">
-    <h1 id="greeting">Welcome to the Home Page</h1>
+    <p id="greeting">Welcome</p>
     <button id="logoutButton" onclick="logout()">Logout</button>
 </div>
 
 <div id="mainContent">
-    <div id="functions" class="container">
-        <h2>Add or Delete Celestial Object</h2>
-        <div class="input-group">
-            <label for="locationSelect"></label>
-            <select id="locationSelect">
-                <option value="moon">Moon</option>
-                <option value="planet">Planet</option>
-            </select>
-        </div>
-        <div id="inputContainer" class="input-group"></div>
-        <div class="input-group">
-            <label for="deleteInput"></label>
-            <input type="text" id="deleteInput" placeholder="Enter ID for celestial body to be deleted">
-        </div>
-        <div class="input-group">
-            <button id="deleteButton" onclick="deleteCelestial()">Delete</button>
-        </div>
-    </div>
-
-    <div id="searchPanel" class="container">
-        <h2>Search Celestial Object</h2>
-        <div class="input-group">
-            <label for="searchPlanetInput"></label>
-            <input type="text" id="searchPlanetInput" placeholder="Enter Planet Name or ID">
-            <span class="clear-btn" id="clearSearchPlanetInput">x</span>
-        </div>
-        <div class="input-group">
+    <div class="container" id="searchPanel">
+        <h2></h2>
+        <div class="search-group">
+            <input id="searchPlanetInput" placeholder="Search Planet By Name or ID" type="text">
             <button id="searchPlanetButton" onclick="searchPlanet()">Search Planet</button>
-
-        </div>
-        <div class="input-group">
-            <label for="searchMoonInput"></label>
-            <input type="text" id="searchMoonInput" placeholder="Enter Moon Name or ID">
-            <span class="clear-btn" id="clearSearchMoonInput">x</span>
-        </div>
-        <div class="input-group">
+            <input id="searchMoonInput" placeholder="Search Moon By Name or ID" type="text">
             <button id="searchMoonButton" onclick="searchMoon()">Search Moon</button>
         </div>
     </div>
 
-    <div id="celestialTableContainer" class="container">
-        <h2>Celestial Table</h2>
-        <table id="celestialTable">
-            <tr>
-                <th>Type</th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Owner</th>
-            </tr>
-            <!-- Add rows for each celestial object here -->
-        </table>
+    <div id="bottomContent">
+        <div class="container" id="functions">
+            <div class="select-group">
+                <label for="locationSelect">Select type:</label>
+                <select id="locationSelect">
+                    <option value="moon">Moon</option>
+                    <option value="planet">Planet</option>
+                </select>
+            </div>
+            <div class="input-group" id="inputContainer"></div>
+            <div class="input-group">
+                <label for="deleteInput"></label>
+                <input id="deleteInput" placeholder="Enter ID for celestial body to be deleted" type="text">
+            </div>
+            <div class="input-group">
+                <button id="deleteButton" onclick="deleteCelestial()">Delete</button>
+            </div>
+        </div>
+
+        <div class="container" id="celestialTableContainer">
+            <table id="celestialTable">
+                <tr>
+                    <th>Type</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Owner</th>
+                </tr>
+            </table>
+        </div>
     </div>
 </div>
 
 <script>
     populateCelestialTable();
-    greeting.textContent = `Welcome to the Home Page ${sessionStorage.getItem("user")}`
+    let userName = sessionStorage.getItem("user");
+    userName = userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase();
+    greeting.textContent = `Welcome ${userName}`;
 
     function populateInputContainer(selectedValue) {
         let inputContainer = document.getElementById('inputContainer');
@@ -235,12 +361,12 @@ input[type="text"] {
                 const bodyData = {
                     name: planetName,
                     ownerId: parseInt(sessionStorage.getItem("userId"))
-                }
+                };
                 const bodyJson = JSON.stringify(bodyData);
                 const headersList = {
                     "Accept": "*/*",
                     "Content-Type": "application/json"
-                }
+                };
                 fetch('http://localhost:7000/api/planet', {
                     method: 'POST',
                     body: bodyJson,
@@ -248,17 +374,16 @@ input[type="text"] {
                     credentials: 'include'
                 }).then(response => {
                     if (response.status === 201) {
-                        // Planet created successfully
                         populateCelestialTable();
                         planetNameInput.value = '';
                     }
 
-                    if (response.status === 500){
-                        alert("Failed to add planet")
+                    if (response.status === 500) {
+                        alert("Failed to add planet");
                     }
                 }).catch(error => {
                     alert("Something went wrong, check the console for details");
-                })
+                });
             });
             inputContainer.appendChild(submitButton);
         } else if (selectedValue === 'moon') {
@@ -285,12 +410,12 @@ input[type="text"] {
                 const bodyData = {
                     name: moonName,
                     myPlanetId: parseInt(orbitedPlanetId)
-                }
+                };
                 const bodyJson = JSON.stringify(bodyData);
                 const headersList = {
                     "Accept": "*/*",
                     "Content-Type": "application/json"
-                }
+                };
                 fetch('http://localhost:7000/api/moon', {
                     method: 'POST',
                     body: bodyJson,
@@ -298,17 +423,16 @@ input[type="text"] {
                     credentials: 'include'
                 }).then(response => {
                     if (response.status === 201) {
-                        // moon created successfully
                         populateCelestialTable();
-                        moonNameInput.value = ''; // Reset moon name input
+                        moonNameInput.value = '';
                         orbitedPlanetInput.value = '';
                     }
-                    if (response.status === 500){
-                        alert("There was an error adding moon")
+                    if (response.status === 500) {
+                        alert("There was an error adding moon");
                     }
                 }).catch(error => {
                     alert("Something went wrong, check the console for details");
-                })
+                });
             });
             inputContainer.appendChild(submitButton);
         }
@@ -318,7 +442,6 @@ input[type="text"] {
         populateInputContainer(this.value);
     });
 
-    // Populate the input container on page load based on the initial selection
     populateInputContainer(document.getElementById('locationSelect').value);
 
     async function populateCelestialTable() {
@@ -377,10 +500,10 @@ input[type="text"] {
         });
         if (response.status === 202) {
             populateCelestialTable();
-            if (selectedOption === 'moon'){
+            if (selectedOption === 'moon') {
                 alert(`Deleted moon with ID ${id}`);
             }
-            if (selectedOption === 'planet'){
+            if (selectedOption === 'planet') {
                 alert(`Deleted planet with ID ${id}`);
             }
             console.log(response);
@@ -394,7 +517,7 @@ input[type="text"] {
         const requestData = {
             method: 'DELETE',
             credentials: 'include'
-        }
+        };
         const response = await fetch('http://localhost:7000/logout', requestData);
         if (response.status === 200) {
             sessionStorage.clear();
@@ -405,31 +528,19 @@ input[type="text"] {
     }
 
     document.getElementById('searchPlanetInput').addEventListener('change', async function() {
-        // Get the value of the search input and trim any leading or trailing spaces
         let input = this.value.trim();
-
-        // Check if the input is empty
         if (!input) {
-            // If input is empty, fetch the whole table
             await populateCelestialTable();
             return;
         }
-
-        // Convert the input to lowercase
         input = input.toLowerCase();
-
-       let url;
-    const highestPlanetId = getHighestPlanetId();
-
-    // Determine if input should be treated as a name or an ID
-    if (!isNaN(input) && parseInt(input, 10) <= highestPlanetId) {
-        // If input is a number and less than or equal to the highest planet ID, search by id
-        url = `http://localhost:7000/api/planet/id/${input}`;
-    } else {
-        // Otherwise, search by name
-        url = `http://localhost:7000/api/planet/name/${input}`;
-    }
-
+        let url;
+        const highestPlanetId = getHighestPlanetId();
+        if (!isNaN(input) && parseInt(input, 10) <= highestPlanetId) {
+            url = `http://localhost:7000/api/planet/id/${input}`;
+        } else {
+            url = `http://localhost:7000/api/planet/name/${input}`;
+        }
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include'
@@ -437,10 +548,8 @@ input[type="text"] {
         if (response.ok) {
             const data = await response.json();
             const table = document.getElementById('celestialTable');
-            // Clear existing table content
             table.innerHTML = '<tr><th>Type</th><th>ID</th><th>Name</th><th>Owner</th></tr>';
             if (Array.isArray(data) && data.length > 0) {
-                // If data is an array and has elements, update the table
                 data.forEach(planet => {
                     const row = table.insertRow();
                     const typeCell = row.insertCell(0);
@@ -453,7 +562,6 @@ input[type="text"] {
                     ownerCell.textContent = planet.ownerId;
                 });
             } else if (!Array.isArray(data) && data) {
-                // If data is not an array and is truthy (indicating a single object), update the table
                 const row = table.insertRow();
                 const typeCell = row.insertCell(0);
                 const idCell = row.insertCell(1);
@@ -464,41 +572,27 @@ input[type="text"] {
                 nameCell.textContent = data.name;
                 ownerCell.textContent = data.ownerId;
             } else {
-                // If no planet is found with the provided input
                 alert('No planet found with the provided input');
             }
-
         } else {
             alert('Failed: No planet found.');
         }
-    })
+    });
 
     document.getElementById('searchMoonInput').addEventListener('change', async function() {
-        // Get the value of the search input and trim any leading or trailing spaces
         let input = this.value.trim();
-
-        // Check if the input is empty
         if (!input) {
-            // If input is empty, fetch the whole table
             await populateCelestialTable();
             return;
         }
-
-        // Convert the input to lowercase
         input = input.toLowerCase();
-
-         let url;
-    const highestMoonId = getHighestPlanetId();
-
-    // Determine if input should be treated as a name or an ID
-    if (!isNaN(input) && parseInt(input, 10) <= highestMoonId) {
-            // If input is a number, search by id
+        let url;
+        const highestMoonId = getHighestPlanetId();
+        if (!isNaN(input) && parseInt(input, 10) <= highestMoonId) {
             url = `http://localhost:7000/api/moon/id/${input}`;
         } else {
-            // If input is a string, search by name
             url = `http://localhost:7000/api/moon/name/${input}`;
         }
-
         const response = await fetch(url, {
             method: 'GET',
             credentials: 'include'
@@ -506,10 +600,8 @@ input[type="text"] {
         if (response.ok) {
             const data = await response.json();
             const table = document.getElementById('celestialTable');
-            // Clear existing table content
             table.innerHTML = '<tr><th>Type</th><th>ID</th><th>Name</th><th>Owner</th></tr>';
             if (Array.isArray(data) && data.length > 0) {
-                // If data is an array and has elements, update the table
                 data.forEach(moon => {
                     const row = table.insertRow();
                     const typeCell = row.insertCell(0);
@@ -522,7 +614,6 @@ input[type="text"] {
                     ownerCell.textContent = moon.myPlanetId;
                 });
             } else if (!Array.isArray(data) && data) {
-                // If data is not an array and is truthy (indicating a single object), update the table
                 const row = table.insertRow();
                 const typeCell = row.insertCell(0);
                 const idCell = row.insertCell(1);
@@ -533,74 +624,68 @@ input[type="text"] {
                 nameCell.textContent = data.name;
                 ownerCell.textContent = data.myPlanetId;
             } else {
-                // If no moon is found with the provided input
                 alert('No moon found with the provided input');
             }
-
         } else {
             alert('No moon found.');
         }
-    })
+    });
 
     function getHighestPlanetId() {
-    const rows = document.querySelectorAll('#celestialTable tr');
-    let highestId = -1;
-    rows.forEach(row => {
-        const cells = row.querySelectorAll('td');
-        if (cells.length > 0) {
-            const id = parseInt(cells[1].innerText, 10);
-            if (!isNaN(id) && id > highestId) {
-                highestId = id;
+        const rows = document.querySelectorAll('#celestialTable tr');
+        let highestId = -1;
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            if (cells.length > 0) {
+                const id = parseInt(cells[1].innerText, 10);
+                if (!isNaN(id) && id > highestId) {
+                    highestId = id;
+                }
             }
-        }
-    });
-    return highestId;
-}
-document.addEventListener('DOMContentLoaded', function() {
-    const searchPlanetInput = document.getElementById('searchPlanetInput');
-    const clearSearchPlanetInput = document.getElementById('clearSearchPlanetInput');
-    const searchMoonInput = document.getElementById('searchMoonInput');
-    const clearSearchMoonInput = document.getElementById('clearSearchMoonInput');
-
-    // Show or hide clear button based on input value
-    function toggleClearButton(input, clearButton) {
-        if (input.value.length > 0) {
-            clearButton.style.display = 'block';
-        } else {
-            clearButton.style.display = 'none';
-        }
+        });
+        return highestId;
     }
 
-    // Event listeners for searchPlanetInput
-    searchPlanetInput.addEventListener('input', function() {
-        toggleClearButton(searchPlanetInput, clearSearchPlanetInput);
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchPlanetInput = document.getElementById('searchPlanetInput');
+        const clearSearchPlanetInput = document.getElementById('clearSearchPlanetInput');
+        const searchMoonInput = document.getElementById('searchMoonInput');
+        const clearSearchMoonInput = document.getElementById('clearSearchMoonInput');
+
+        function toggleClearButton(input, clearButton) {
+            if (input.value.length > 0) {
+                clearButton.style.display = 'block';
+            } else {
+                clearButton.style.display = 'none';
+            }
+        }
+
+        searchPlanetInput.addEventListener('input', function() {
+            toggleClearButton(searchPlanetInput, clearSearchPlanetInput);
+        });
+
+        clearSearchPlanetInput.addEventListener('mousedown', function(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            searchPlanetInput.value = '';
+            toggleClearButton(searchPlanetInput, clearSearchPlanetInput);
+            searchPlanetInput.focus();
+            populateCelestialTable();
+        });
+
+        searchMoonInput.addEventListener('input', function() {
+            toggleClearButton(searchMoonInput, clearSearchMoonInput);
+        });
+
+        clearSearchMoonInput.addEventListener('mousedown', function(event) {
+            event.stopPropagation();
+            event.preventDefault();
+            searchMoonInput.value = '';
+            toggleClearButton(searchMoonInput, clearSearchMoonInput);
+            searchMoonInput.focus();
+            populateCelestialTable();
+        });
     });
-
-    clearSearchPlanetInput.addEventListener('mousedown', function(event) {
-        event.stopPropagation();
-        event.preventDefault();
-        searchPlanetInput.value = '';
-        toggleClearButton(searchPlanetInput, clearSearchPlanetInput);
-        searchPlanetInput.focus();
-        populateCelestialTable(); // Call populateCelestialTable() after clearing the input
-    });
-
-    // Event listeners for searchMoonInput
-    searchMoonInput.addEventListener('input', function() {
-        toggleClearButton(searchMoonInput, clearSearchMoonInput);
-    });
-
-    clearSearchMoonInput.addEventListener('mousedown', function(event) {
-        event.stopPropagation();
-        event.preventDefault();
-        searchMoonInput.value = '';
-        toggleClearButton(searchMoonInput, clearSearchMoonInput);
-        searchMoonInput.focus();
-        populateCelestialTable(); // Call populateCelestialTable() after clearing the input
-    });
-});
-
-
 </script>
 </body>
 </html>
