@@ -38,12 +38,12 @@ public class UserService {
         System.out.println("username: " + username);
         // Check if username or password is empty
         if (username.isEmpty() || password.isEmpty()) {
-            return new User();
+            return null;
         }
 
         // Check that username and password are within acceptable length
         if (username.length() > 30 || password.length() > 30) {
-            return new User();
+            return null;
         }
 
         // Validate username and password for ASCII characters and specific pattern
