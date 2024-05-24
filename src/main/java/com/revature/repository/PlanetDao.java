@@ -41,7 +41,7 @@ public class PlanetDao {
     public Planet getPlanetByName(int ownerId, String planetName) {
         // TODO: implement
         try (Connection connection = ConnectionUtil.createConnection()) {
-            System.out.println("PlanetDAO getPlanetByName: " + planetName + " and ID: " + ownerId);
+//            System.out.println("PlanetDAO getPlanetByName: " + planetName + " and ID: " + ownerId);
             String sql = "SELECT id, name, ownerId FROM planets WHERE name = ? AND ownerId = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, planetName);
@@ -58,7 +58,7 @@ public class PlanetDao {
                 planet.setName(name);
                 planet.setOwnerId(owner_Id);
 
-                System.out.println("PlanetDAO: " + name + " and ID: " + owner_Id);
+//                System.out.println("PlanetDAO: " + name + " and ID: " + owner_Id);
                 return planet;
             }
         } catch (SQLException e) {
@@ -88,7 +88,7 @@ public class PlanetDao {
                 return planet;
             } else {
                 // No planet found with the specified ID and owner ID
-                System.out.println("Planet not found with ID: " + planetId + " and owner ID: " + ownerId);
+//                System.out.println("Planet not found with ID: " + planetId + " and owner ID: " + ownerId);
                 return null;
             }
         } catch (SQLException e) {
