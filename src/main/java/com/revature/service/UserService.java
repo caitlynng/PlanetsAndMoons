@@ -18,11 +18,14 @@ public class UserService {
 
     public User authenticate(UsernamePasswordAuthentication loginRequestData) {
         // TODO: implement
+        // Remove trailing space and make username lowercase
+        String username = loginRequestData.getUsername().trim().toLowerCase();
+        String password = loginRequestData.getPassword();
 
-        User user = dao.getUserByUsername(loginRequestData.getUsername());
+        User user = dao.getUserByUsername(username);
 
         // Check if the user exists and the provided password matches
-        if (user != null && user.getPassword().equals(loginRequestData.getPassword())) {
+        if (user != null && user.getPassword().equals(password)) {
             return user;
         }
 
@@ -35,7 +38,6 @@ public class UserService {
         String username = registerRequestData.getUsername().trim().toLowerCase();
         String password = registerRequestData.getPassword();
 
-        System.out.println("username: " + username);
         // Check if username or password is empty
         if (username.isEmpty() || password.isEmpty()) {
             return null;
