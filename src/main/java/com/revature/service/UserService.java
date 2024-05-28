@@ -22,6 +22,11 @@ public class UserService {
         String username = loginRequestData.getUsername().trim().toLowerCase();
         String password = loginRequestData.getPassword();
 
+        System.out.println(username);
+        if (fieldsCheck(username) == null && fieldsCheck(password) == null) {
+            return null;
+        }
+
         User user = dao.getUserByUsername(username);
 
         // Check if the user exists and the provided password matches
@@ -38,27 +43,7 @@ public class UserService {
         String username = registerRequestData.getUsername().trim().toLowerCase();
         String password = registerRequestData.getPassword();
 
-        // Check if username or password is empty
-        if (username.isEmpty() || password.isEmpty()) {
-            return null;
-        }
-
-        // Check that username and password are within acceptable length
-        if (username.length() > 30 || password.length() > 30) {
-            return null;
-        }
-
-        // Validate username and password for ASCII characters and specific pattern
-        CharMatcher asciiMatcher = CharMatcher.ascii();
-        Pattern sqlInjectionPattern = Pattern.compile("\\b\\w+\\b.*\\b(?:DROP|DELETE|INSERT|UPDATE|TRUNCATE|ALTER|EXEC|UNION|SELECT|CREATE)\\b.*", Pattern.CASE_INSENSITIVE);
-
-        if (!asciiMatcher.matchesAllOf(username) || !asciiMatcher.matchesAllOf(password) ||
-                sqlInjectionPattern.matcher(username).find() || sqlInjectionPattern.matcher(password).find()) {
-            return null;
-        }
-
-        // Check for SQL injection patterns
-        if (containsSQLInjection(username) || containsSQLInjection(password)) {
+        if (fieldsCheck(username) == null && fieldsCheck(password) == null) {
             return null;
         }
 
@@ -75,6 +60,32 @@ public class UserService {
         return null;
     }
 
+    private String fieldsCheck(String str) {
+        // Check if username or password is empty
+        if (str.isEmpty()) {
+            return null;
+        }
+
+        // Check that username and password are within acceptable length
+        if (str.length() > 30) {
+            return null;
+        }
+
+        // Validate username and password for ASCII characters and specific pattern
+        CharMatcher asciiMatcher = CharMatcher.ascii();
+        Pattern sqlInjectionPattern = Pattern.compile("\\b\\w+\\b.*\\b(?:DROP|DELETE|INSERT|UPDATE|TRUNCATE|ALTER|EXEC|UNION|SELECT|CREATE)\\b.*", Pattern.CASE_INSENSITIVE);
+
+        if (!asciiMatcher.matchesAllOf(str) ||
+                sqlInjectionPattern.matcher(str).find()) {
+            return null;
+        }
+
+        // Check for SQL injection patterns
+        if (containsSQLInjection(str)) {
+            return null;
+        }
+        return str;
+    }
 
     private boolean containsSQLInjection(String str) {
         // Implement logic to detect SQL injection, e.g., using regex or libraries
