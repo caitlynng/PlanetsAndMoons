@@ -23,7 +23,7 @@ public class UserService {
         String password = loginRequestData.getPassword();
 
         System.out.println(username);
-        if (fieldsCheck(username) == null && fieldsCheck(password) == null) {
+        if (fieldsCheck(username) == null || fieldsCheck(password) == null) {
             return null;
         }
 
@@ -43,7 +43,7 @@ public class UserService {
         String username = registerRequestData.getUsername().trim().toLowerCase();
         String password = registerRequestData.getPassword();
 
-        if (fieldsCheck(username) == null && fieldsCheck(password) == null) {
+        if (fieldsCheck(username) == null || fieldsCheck(password) == null) {
             return null;
         }
 
@@ -84,6 +84,8 @@ public class UserService {
         if (containsSQLInjection(str)) {
             return null;
         }
+
+        System.out.println(str);
         return str;
     }
 

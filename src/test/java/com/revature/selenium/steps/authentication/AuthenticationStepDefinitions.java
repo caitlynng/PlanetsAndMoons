@@ -64,7 +64,7 @@ public class AuthenticationStepDefinitions {
     }
 
     @Then("an error message should be displayed")
-    public void errorAlertDisplayed() {
+    public void errorAlertDisplayed() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         String alertText = wait.until(ExpectedConditions.alertIsPresent()).getText();
         assertTrue(alertText.contains("failed"), "Error alert not displayed");
