@@ -14,14 +14,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 
 public class UserControllerTest {
+    private final Context ctx = mock(Context.class);
     @Mock
     UserService userService;
     @InjectMocks
     UserController userController;
 
-    private final Context ctx = mock(Context.class);
     @BeforeEach
-    public void setup(){
+    public void setup() {
         userService = Mockito.mock(UserService.class);
         userController = new UserController(userService);
     }
@@ -63,7 +63,6 @@ public class UserControllerTest {
         Mockito.verify(ctx).json(userReturn);
 
 
-
     }
 
     @Test
@@ -72,16 +71,14 @@ public class UserControllerTest {
         UsernamePasswordAuthentication userInput = new UsernamePasswordAuthentication();
         userInput.setUsername("testUserRegisterPositive");
         userInput.setPassword("valid");
-        User userReturn = new User();
-        userReturn.setId(100);
-        userReturn.setUsername("testUserRegisterPositive");
-        userReturn.setPassword("valid");
+
         Mockito.when(ctx.bodyAsClass(UsernamePasswordAuthentication.class)).thenReturn(userInput);
         Mockito.when(userService.authenticate(any())).thenReturn(null);
-        userController.authenticate(ctx);
-        Mockito.verify(ctx).status(400);
-//        Mockito.verify(ctx).json();
+        Mockito.when(ctx.status(400)).thenReturn(ctx);
 
+        userController.authenticate(ctx);
+
+        Mockito.verify(ctx).status(400);
     }
 
     @Test
@@ -99,6 +96,7 @@ public class UserControllerTest {
         Mockito.verify(ctx).json(userReturn);
 
     }
+
     @Test
     @DisplayName("Register::Negative - Throw NullPointerException")
     public void testUserRegisterNegativeThrowException() {
@@ -109,7 +107,7 @@ public class UserControllerTest {
         Mockito.when(ctx.bodyAsClass(User.class)).thenReturn(userInput);
         Mockito.when(userService.register(any())).thenReturn(userReturn);
 //        Mockito.when(ctx.json(null)).thenReturn(ctx);
-        Assertions.assertThrows(NullPointerException.class, ()->{
+        Assertions.assertThrows(NullPointerException.class, () -> {
             userController.register(ctx);
         });
     }

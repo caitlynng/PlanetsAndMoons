@@ -267,7 +267,7 @@ public class UserServiceTest {
         user.setUsername(uName);
         user.setPassword(pwd);
 
-        when(userDao.getUserByUsername(uName)).thenReturn(null);
+        when(userDao.getUserByUsername(uName.toLowerCase())).thenReturn(null);
 
         //Act
         User authenticatedUser = userService.authenticate(user);

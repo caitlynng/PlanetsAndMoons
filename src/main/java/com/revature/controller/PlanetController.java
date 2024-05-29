@@ -28,9 +28,8 @@ public class PlanetController {
         try {
             User u = ctx.sessionAttribute("user");
             String planetName = ctx.pathParam("name");
-            System.out.println("This name is " + planetName);
 
-            if (planetName == null || planetName.isEmpty()) {
+            if (planetName.isEmpty()) {
                 ctx.json("Planet name cannot be empty").status(400);
                 return;
             }
