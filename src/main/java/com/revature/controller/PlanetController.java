@@ -84,7 +84,7 @@ public class PlanetController {
             if (deleted) {
                 ctx.json("Planet successfully deleted").status(202);
             } else {
-                ctx.status(500).json("Failed to delete planet");
+                ctx.json("Failed to delete planet").status(500);
             }
         } catch (Exception e) {
             ctx.status(500).json("There was an error");
