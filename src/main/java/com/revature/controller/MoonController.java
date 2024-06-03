@@ -27,6 +27,8 @@ public class MoonController {
 		
 		Moon m = moonService.getMoonByName(u.getId(), moonName);
 
+		System.out.println(m);
+
 		if (m == null) {
 			ctx.json("Moon not found").status(404);
 			return;
@@ -76,15 +78,21 @@ public class MoonController {
 		if (deleted) {
 			ctx.json("Moon successfully deleted").status(202);
 		} else {
-			ctx.result("Failed to delete moon").status(500); 
+			ctx.result("Failed to delete moon").status(500);
 		}
 	}
 	
 	public void getPlanetMoons(Context ctx) {
+
 		int planetId = ctx.pathParamAsClass("id", Integer.class).get();
-		
+
 		List<Moon> moonList = moonService.getMoonsFromPlanet(planetId);
-		
+
+		if (moonList.isEmpty()) {
+			ctx.json("Moon(s) not found").status(404);
+			return;
+		}
+
 		ctx.json(moonList).status(200);
 	}
 }
