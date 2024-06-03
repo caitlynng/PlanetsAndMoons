@@ -26,25 +26,41 @@ public class MoonController {
 		String moonName = ctx.pathParam("name");
 		
 		Moon m = moonService.getMoonByName(u.getId(), moonName);
+
+		if (m == null) {
+			ctx.json("Moon not found").status(404);
+			return;
+		}
 		
 		ctx.json(m).status(200);
 	}
 
 	public void getMoonById(Context ctx) {
-		User u = ctx.sessionAttribute("user");
-		int moonId = ctx.pathParamAsClass("id", Integer.class).get();
-		
-		Moon m = moonService.getMoonById(u.getId(), moonId);
-		
-		ctx.json(m).status(200);
+		try {
+			User u = ctx.sessionAttribute("user");
+			int moonId = ctx.pathParamAsClass("id", Integer.class).get();
+
+			Moon m = moonService.getMoonById(u.getId(), moonId);
+
+			ctx.json(m).status(200);
+		} catch (Exception e) {
+			ctx.status(500).json("There was an error");
+		}
+
 	}
 
 	public void createMoon(Context ctx) {
-		Moon m = ctx.bodyAsClass(Moon.class);
-		
-		Moon outGoingMoon = moonService.createMoon(m);
-		
-		ctx.json(outGoingMoon).status(201);
+		try{
+			Moon m = ctx.bodyAsClass(Moon.class);
+
+			Moon outGoingMoon = moonService.createMoon(m);
+
+			ctx.json(outGoingMoon).status(201);
+		}
+		catch (Exception e) {
+			ctx.status(500).json("There was an error");
+		}
+
 	}
 
 	public void deleteMoon(Context ctx) {
