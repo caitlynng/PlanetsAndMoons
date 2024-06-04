@@ -1,5 +1,6 @@
 package com.revature.units.repository;
 
+import com.revature.exceptions.PlanetFailException;
 import com.revature.models.Planet;
 import com.revature.repository.PlanetDao;
 import com.revature.utilities.ConnectionUtil;
@@ -318,4 +319,85 @@ public class PlanetDaoTest {
 
         Assertions.assertTrue(deletion);
     }
+    @Test
+    @DisplayName("DeletePlanetById::Invalid - throws SQL exception")
+    public void deletePlanetByIdInvalidThrowException() throws SQLException {
+        int ownerId = 1;
+        int planetId = 1;
+
+        PreparedStatement check = Mockito.mock(PreparedStatement.class);
+        PreparedStatement moonPs = Mockito.mock(PreparedStatement.class);
+        ResultSet moonCheck = Mockito.mock(ResultSet.class);
+
+        when(conn.prepareStatement("SELECT id, name, ownerId FROM planets WHERE id = ? AND ownerId = ?")).thenReturn(check);
+        doNothing().when(check).setInt(1, planetId);
+        doNothing().when(check).setInt(2, ownerId);
+        when(check.executeQuery()).thenReturn(moonCheck);
+        when(moonCheck.next()).thenReturn(true);
+
+        when(conn.prepareStatement("DELETE FROM moons WHERE myPlanetId = ?")).thenReturn(moonPs);
+        doNothing().when(moonPs).setInt(1, planetId);
+        when(moonPs.executeUpdate()).thenThrow(SQLException.class);
+
+        Exception exception = Assertions.assertThrows(PlanetFailException.class, ()->planetDao.deletePlanetById(ownerId, planetId));
+        Assertions.assertEquals("Error deleting planet", exception.getMessage());
+    }
+    @Test
+    @DisplayName("CreatePlanet::Invalid - throws SQL exception")
+    public void createPlanetInvalidThrowException() throws SQLException {
+        int ownerId = 1;
+        String name = "Earth";
+        Planet planet = new Planet();
+        planet.setName(name);
+        planet.setOwnerId(ownerId);
+
+        when(conn.prepareStatement("INSERT INTO planets (name, ownerId) VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS)).thenReturn(ps);
+        doNothing().when(ps).setString(1, name);
+        doNothing().when(ps).setInt(2, ownerId);
+        when(ps.executeUpdate()).thenThrow(SQLException.class);
+
+        Exception exception = Assertions.assertThrows(PlanetFailException.class, ()->planetDao.createPlanet(planet));
+        Assertions.assertEquals("Error creating planets", exception.getMessage());
+    }
+    @Test
+    @DisplayName("GetPlanetById::Invalid - throws SQL exception")
+    public void GetPlanetByIdInvalidThrowException() throws SQLException {
+        int planetId = 1;
+        int ownerId = 10;
+
+        when(conn.prepareStatement("SELECT id, name, ownerId FROM planets WHERE id = ? AND ownerId = ?")).thenReturn(ps);
+        doNothing().when(ps).setInt(1, planetId);
+        doNothing().when(ps).setInt(2, ownerId);
+        when(ps.executeQuery()).thenThrow(SQLException.class);
+
+        Exception exception = Assertions.assertThrows(PlanetFailException.class, ()->planetDao.getPlanetById(ownerId, planetId));
+        Assertions.assertEquals("Error retrieving planets", exception.getMessage());
+    }
+    @Test
+    @DisplayName("GetPlanetByName::Invalid - throws SQL exception")
+    public void GetPlanetByNameInvalidThrowException() throws SQLException {
+        String name = "Earth";
+        int ownerId = 10;
+
+        when(conn.prepareStatement("SELECT id, name, ownerId FROM planets WHERE name = ? AND ownerId = ?")).thenReturn(ps);
+        doNothing().when(ps).setString(1, name);
+        doNothing().when(ps).setInt(2, ownerId);
+        when(ps.executeQuery()).thenThrow(SQLException.class);
+
+        Exception exception = Assertions.assertThrows(PlanetFailException.class, ()->planetDao.getPlanetByName(ownerId, name));
+        Assertions.assertEquals("Error retrieving planets", exception.getMessage());
+    }
+    @Test
+    @DisplayName("GetAllPlanets::Invalid - throws SQL exception")
+    public void GetAllPlanetsInvalidThrowException() throws SQLException {
+        int ownerId = 10;
+
+        when(conn.prepareStatement("SELECT id, name, ownerId FROM planets WHERE ownerId = ?")).thenReturn(ps);
+        doNothing().when(ps).setInt(1, 1);
+        when(ps.executeQuery()).thenThrow(SQLException.class);
+
+        Exception exception = Assertions.assertThrows(PlanetFailException.class, ()->planetDao.getAllPlanets(ownerId));
+        Assertions.assertEquals("Error retrieving planets", exception.getMessage());
+    }
+
 }

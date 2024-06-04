@@ -1,5 +1,6 @@
 package com.revature.units.repository;
 
+import com.revature.exceptions.MoonFailException;
 import com.revature.models.Moon;
 import com.revature.repository.MoonDao;
 import com.revature.utilities.ConnectionUtil;
@@ -447,4 +448,104 @@ public class MoonDaoTest {
             Assertions.fail("SQLException thrown.");
         }
     }
+    @Test
+    @DisplayName("MoonDao::getAllMoons - Failure")
+    public void getAllMoonsFailureThrowException() throws SQLException {
+        int ownerId = 1;
+        PreparedStatement ps = mock(PreparedStatement.class);
+        ResultSet results = mock(ResultSet.class);
+
+        when(connection.prepareStatement("SELECT m.* FROM moons m JOIN planets p ON m.myPlanetId = p.id WHERE p.ownerId = ?")).thenReturn(ps);
+        when(ps.executeQuery()).thenThrow(SQLException.class);
+
+        Exception exception = Assertions.assertThrows(MoonFailException.class, ()->dao.getAllMoons(ownerId));
+        Assertions.assertEquals("Error retrieving moons: null", exception.getMessage());
+    }
+    @Test
+    @DisplayName("MoonDao::getMoonByName - Failure")
+    public void getMoonByNameFailureThrowException() throws SQLException {
+        int ownerId = 1;
+        String name = "moon";
+        PreparedStatement ps = mock(PreparedStatement.class);
+        ResultSet results = mock(ResultSet.class);
+
+        when(connection.prepareStatement("SELECT * FROM moons WHERE name = ?")).thenReturn(ps);
+        doNothing().when(ps).setString(1, name);
+
+        when(ps.executeQuery()).thenThrow(SQLException.class);
+
+        Assertions.assertNull(dao.getMoonByName(name));
+//        Exception exception = Assertions.assertThrows(Exception.class, ()->dao.getMoonByName(name));
+//        Assertions.assertEquals("Error retrieving moon by name: null", exception.getMessage());
+    }
+    @Test
+    @DisplayName("MoonDao::getMoonById - Failure")
+    public void getMoonByIdFailureThrowException() throws SQLException {
+        int ownerId = 1;
+        int moonId = 10;
+        PreparedStatement ps = mock(PreparedStatement.class);
+        ResultSet results = mock(ResultSet.class);
+
+        when(connection.prepareStatement("SELECT * FROM moons WHERE id = ?")).thenReturn(ps);
+        doNothing().when(ps).setInt(1, moonId);
+
+        when(ps.executeQuery()).thenThrow(SQLException.class);
+
+        Assertions.assertNull(dao.getMoonById(moonId));
+    }
+    @Test
+    @DisplayName("MoonDao::createMoon - Failure")
+    public void createMoonFailureThrowException() throws SQLException {
+        int planetId = 1;
+        String name = "moon";
+        Moon moon = new Moon();
+        moon.setName(name);
+        moon.setMyPlanetId(planetId);
+        // Mocking PreparedStatement and ResultSet for checking if planet exists
+        PreparedStatement psCheckPlanetExists = mock(PreparedStatement.class);
+        ResultSet resultsCheckPlanetExists = mock(ResultSet.class);
+
+        // Mocking PreparedStatement and ResultSet for inserting moon
+        PreparedStatement psInsert = mock(PreparedStatement.class);
+        ResultSet resultsInsert = mock(ResultSet.class);
+
+        // Mock the connection to return the prepared statement for checking if the planet exists
+        when(connection.prepareStatement("SELECT COUNT(*) FROM planets WHERE id = ?")).thenReturn(psCheckPlanetExists);
+        when(psCheckPlanetExists.executeQuery()).thenThrow(SQLException.class);
+
+        Assertions.assertNull(dao.createMoon(moon));
+    }
+    @Test
+    @DisplayName("MoonDao::deleteMoonById - Failure")
+    public void deleteMoonByIdFailureThrowException() throws SQLException {
+        int moonId = 1;
+        // Mocking PreparedStatement and ResultSet for checking if moon exists
+        PreparedStatement psCheckMoonExists = mock(PreparedStatement.class);
+        ResultSet resultsCheckMoonExists = mock(ResultSet.class);
+
+        // Mocking PreparedStatement for deleting moon
+        PreparedStatement psDelete = mock(PreparedStatement.class);
+
+        // Mock the connection to return the prepared statement for checking if the moon exists
+        when(connection.prepareStatement("SELECT * FROM moons WHERE id = ?")).thenReturn(psCheckMoonExists);
+        when(psCheckMoonExists.executeQuery()).thenThrow(SQLDataException.class);
+
+        Assertions.assertFalse(dao.deleteMoonById(moonId));
+    }
+    @Test
+    @DisplayName("MoonDao::getMoonsFromPlanet - Failure")
+    public void getMoonsFromPlanetFailureThrowException() throws SQLException {
+        int planetId = 1;
+        // Mocking PreparedStatement and ResultSet
+        PreparedStatement ps = mock(PreparedStatement.class);
+        ResultSet results = mock(ResultSet.class);
+
+        // Mock the connection to return the prepared statement for getting moons from planet
+        when(connection.prepareStatement("SELECT * FROM moons WHERE myPlanetId = ?")).thenReturn(ps);
+        when(ps.executeQuery()).thenThrow(SQLDataException.class);
+
+        List<Moon> moons = dao.getMoonsFromPlanet(planetId);
+        Assertions.assertTrue(moons.isEmpty());
+    }
+
 }
