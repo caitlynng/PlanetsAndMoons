@@ -143,11 +143,9 @@ public class PlanetDao {
                 // Check if the planet or any associated moons were deleted
                 if (planetRowsAffected > 0 || moonsRowsAffected > 0) {
                     return true;
-                } else {
-                    System.out.println("No planet or associated moons were deleted for planet ID " + planetId + " and owner ID " + ownerId);
-                    return false;
                 }
             }
+            System.out.println("No planet or associated moons were deleted for planet ID " + planetId + " and owner ID " + ownerId);
             return false;
         } catch (SQLException e) {
             throw new PlanetFailException("Error deleting planet");
