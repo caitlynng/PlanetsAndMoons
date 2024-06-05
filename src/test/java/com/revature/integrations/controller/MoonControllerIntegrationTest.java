@@ -87,7 +87,7 @@ public class MoonControllerIntegrationTest {
             try(Response loginResponse = httpClient.newCall(loginRequest).execute()){
                 actualStatusCode = loginResponse.code();
                 responseBody = Objects.requireNonNull(loginResponse.body().string());
-                System.out.println(actualStatusCode + " :::: " + responseBody);
+//                System.out.println(actualStatusCode + " :::: " + responseBody);
                 Assertions.assertEquals(202, actualStatusCode);
 
                 // Extract session cookie

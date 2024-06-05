@@ -22,7 +22,7 @@ public class UserService {
         String username = loginRequestData.getUsername().trim().toLowerCase();
         String password = loginRequestData.getPassword();
 
-        System.out.println(username);
+//        System.out.println(username);
         if (fieldsCheck(username) == null || fieldsCheck(password) == null) {
             return null;
         }
@@ -85,7 +85,7 @@ public class UserService {
             return null;
         }
 
-        System.out.println(str);
+//        System.out.println(str);
         return str;
     }
 

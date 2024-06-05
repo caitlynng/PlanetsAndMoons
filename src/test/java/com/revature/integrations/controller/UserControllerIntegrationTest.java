@@ -51,11 +51,11 @@ public class UserControllerIntegrationTest {
             try (Response response = client.post("/register", requestJSON)) {
                 actualStatusCode = response.code();
                 responseBody = Objects.requireNonNull(response.body().string());
-                System.out.println(actualStatusCode + " :::: " + responseBody);
+//                System.out.println(actualStatusCode + " :::: " + responseBody);
             }
             Assertions.assertEquals(201, actualStatusCode);
             Assertions.assertNotNull(responseBody);
-            System.out.println(responseBody);
+//            System.out.println(responseBody);
         });
     }
 

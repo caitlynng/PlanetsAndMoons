@@ -151,7 +151,7 @@ public class MoonStepDefinitions {
     @Then("the moon name {string} should be shown in the Celestial Table")
     public void theMoonNameMoonNameShouldBeAddedSuccessfullyToTheCelestialTable(String moonName) throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        Thread.sleep(1000);
+//        Thread.sleep(1000);
         assertTrue(homePage.isPlanetInTable(moonName.trim().toLowerCase()));
     }
 

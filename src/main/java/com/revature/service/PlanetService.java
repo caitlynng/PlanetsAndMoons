@@ -29,7 +29,7 @@ public class PlanetService {
 
         // Convert the planet name to lowercase
         String lowercaseName = trimmedName.toLowerCase();
-        System.out.println(lowercaseName);
+//        System.out.println(lowercaseName);
         return dao.getPlanetByName(ownerId, lowercaseName);
     }
 

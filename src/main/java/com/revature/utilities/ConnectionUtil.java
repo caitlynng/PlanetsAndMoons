@@ -37,7 +37,7 @@ public class ConnectionUtil {
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.executeUpdate();
             }
-            System.out.println("Database table rows are deleted.");
+//            System.out.println("Database table rows are deleted.");
         } catch (Exception e){
             System.err.println("Database table rows cannot be deleted. "+ e.getMessage());
         }

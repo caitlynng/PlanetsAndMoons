@@ -27,7 +27,7 @@ public class MoonController {
 		
 		Moon m = moonService.getMoonByName(u.getId(), moonName);
 
-		System.out.println(m);
+//		System.out.println(m);
 
 		if (m == null) {
 			ctx.json("Moon not found").status(404);

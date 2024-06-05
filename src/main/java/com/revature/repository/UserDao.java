@@ -31,7 +31,7 @@ public class UserDao {
 
     public User createUser(UsernamePasswordAuthentication registerRequest) {
         try (Connection connection = ConnectionUtil.createConnection()) {
-            System.out.println("Creating user with username: " + registerRequest.getUsername());
+//            System.out.println("Creating user with username: " + registerRequest.getUsername());
             String sql = "insert into users (username, password) values (?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, registerRequest.getUsername());

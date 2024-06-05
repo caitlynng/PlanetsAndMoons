@@ -41,7 +41,7 @@ public class MoonServiceIntegrationTest {
         testPlanet.setOwnerId(1);
         testPlanet = planetDao.createPlanet(testPlanet);
 
-        System.out.println(testPlanet);
+//        System.out.println(testPlanet);
     }
 
     @Test
@@ -73,8 +73,8 @@ public class MoonServiceIntegrationTest {
 
         // Act
         Moon expectedMoon = moonService.getMoonByName(testPlanet.getId(), testMoon.getName());
-        System.out.println("testMoon: " + testMoon);
-        System.out.println("expMoon: " + expectedMoon);
+//        System.out.println("testMoon: " + testMoon);
+//        System.out.println("expMoon: " + expectedMoon);
 
         // Assert
         assertNotNull(expectedMoon);

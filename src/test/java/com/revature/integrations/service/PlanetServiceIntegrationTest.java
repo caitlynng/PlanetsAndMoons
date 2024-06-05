@@ -33,7 +33,7 @@ public class PlanetServiceIntegrationTest {
         testPlanet.setOwnerId(1);
         testPlanet = planetDao.createPlanet(testPlanet);
 
-        System.out.println(testPlanet);
+//        System.out.println(testPlanet);
     }
 
 
