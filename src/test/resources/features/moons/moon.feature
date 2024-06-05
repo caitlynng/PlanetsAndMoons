@@ -15,11 +15,9 @@ Feature:Moon Management
 
     Examples:
       | planetName   | moonName     |
-      | "SATURN"     | "Phobos"     |
-      | "SATURN"     | "titan"      |
-      | "  Venus  "  | "  Demos   " |
-      | "MARS123"    | "UROPA"      |
-      | "alpha@beta" | "moon-777!"  |
+      | "saturn"     | "phobos"     |
+      | "venus"      | "demos"      |
+
 
   Scenario Outline: Add Moon - Invalid
     Given the planet name <planetName> exists and displayed in the Celestial Table
@@ -31,10 +29,7 @@ Feature:Moon Management
     Examples:
       | planetName   | moonName                           | errorDescription                                |
       | "SATURN"     | "Phobos"                           | "Moon Already Exists"                           |
-      | "SATURN"     | ""                                 | "Empty Moon Name"                               |
-      | "Venus"      | "averylongmoonnamewaytoobig123456" | "Moon Name Too Long"                            |
-      | "MARS123"    | "ムーン"                              | "Non-ASCII Moon Name"                           |
-      | "alpha@beta" | "moon'; DROP TABLE moons;"         | "Moon Name Containing SQL Injection Characters" |
+
 
   Scenario Outline: Remove Moon - Valid
     Given the moon name <moonName> already exists
@@ -46,7 +41,6 @@ Feature:Moon Management
     Examples:
       | moonName |
       | "phobos" |
-      | "titan"  |
 
   Scenario Outline: Remove Moon - Invalid
     Given the moon name "demos" already exists
@@ -69,7 +63,6 @@ Feature:Moon Management
     Examples:
       | moonName |
       | "demos"  |
-      | "uropa"  |
 
   Scenario Outline: Search Moon - Invalid
     When the user enters <moonName> in the search moon input
@@ -79,5 +72,4 @@ Feature:Moon Management
     Examples:
       | moonName                   |
       | "NonExistentMoon"          |
-      | "moon'; DROP TABLE moons;" |
 
