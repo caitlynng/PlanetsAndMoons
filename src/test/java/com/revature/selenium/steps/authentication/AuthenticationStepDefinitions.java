@@ -90,7 +90,6 @@ public class AuthenticationStepDefinitions {
     @Given("User is on Login page")
     public void userIsOnLoginPage() {
         driver.get("http://localhost:7000/webpage/login");
-        System.out.println("On login page");
         assertTrue(driver.getCurrentUrl().contains("http://localhost:7000/webpage/login"), "User is not on the Login page");
     }
 
@@ -116,7 +115,6 @@ public class AuthenticationStepDefinitions {
     public void theUserIsDirectedToHomePage() {
         authenticationPage.waitForHomePageLoad();
         String pageTitle = driver.getTitle();
-        System.out.println("pageTitle");
         assertEquals("Home", pageTitle, "User is not directed to the Home page");
     }
 }

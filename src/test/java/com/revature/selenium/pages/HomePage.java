@@ -63,7 +63,7 @@ public class HomePage {
     private WebElement celestialTable;
 
     public HomePage(WebDriver driver) {
-//        System.out.println("In HomePage POM");
+        System.out.println("In HomePage POM");
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
@@ -117,7 +117,7 @@ public class HomePage {
     }
 
     public boolean isPlanetInTable(String bodyName) {
-//        System.out.println("Is Planet in Table: " + bodyName);
+        System.out.println("Is Planet in Table: " + bodyName);
 
         List<WebElement> rows = celestialTable.findElements(By.tagName("tr"));
 

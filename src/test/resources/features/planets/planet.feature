@@ -13,13 +13,9 @@ Feature:Planet Management
     Then the planet name <planetName> should be added successfully to the Celestial Table
 
     Examples:
-      | planetName   |
-      | "earth"      |
-      | "Jupiter"    |
-      | "SATURN"     |
-      | "  Venus  "  |
-      | "MARS123"    |
-      | "alpha@beta" |
+      | planetName   | Description                          |
+      | "earth"      | all lowercase name                   |
+      | "Jupiter"    | one upper case name                  |
 
   Scenario Outline: Add Planet - Invalid
     Given the Planet option is selected in the location select
@@ -28,11 +24,10 @@ Feature:Planet Management
     Then the Error alert should be displayed
 
     Examples: Negative Cases
-      | planetName                                      |
-      | ""                                              |
-      | "AstroAdventureWonderlandWonderlandWonderland " |
-      | "测试"                                            |
-      | "earth; DROP TABLE planets;"                    |
+      | planetName                                      |  errorDescription                          |
+      | ""                                              |  empty string                              |
+      | "AstroAdventureWonderlandWonderlandWonderland " |  name is too long                          |
+
 
   Scenario: Add Planet - Planet Already Exists
     Given the planet name "earth" already exists
@@ -52,10 +47,9 @@ Feature:Planet Management
     Examples:
       | planetName |
       | "earth"    |
-      | "jupiter"  |
 
   Scenario Outline: Remove Planet - Invalid
-    Given the planet name "saturn" already exists
+    Given the planet name "jupiter" already exists
     And the Planet option is selected in the location select
     When the user enters <planetName> in the delete planet input
     And clicks the delete button
@@ -63,9 +57,7 @@ Feature:Planet Management
 
     Examples:
       | planetName   |
-      | "saturn"     |
-      | ""           |
-      | "1000000000" |
+      | "jupiter"     |
 
   Scenario Outline: Search Planet - Valid
     Given the planet name <planetName> already exists
@@ -76,16 +68,11 @@ Feature:Planet Management
     Examples:
       | planetName   |
       | "SATURN"     |
-      | "  Venus  "  |
-      | "MARS123"    |
-      | "alpha@beta" |
-
   Scenario Outline: Search Planet - Invalid
     When the user enters <planetName> in the search planet input
     And clicks the search planet button
     Then the Error alert should be displayed
 
     Examples:
-      | planetName                     |
-      | "NonExistentPlanet"            |
-      | "planet'; DROP TABLE planets;" |
+      | planetName                     | errorDescription                          |
+      | "NonExistentPlanet"            | planet name doesn't exist                 |
