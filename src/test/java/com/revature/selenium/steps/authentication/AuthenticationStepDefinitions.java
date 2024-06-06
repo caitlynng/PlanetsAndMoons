@@ -43,8 +43,8 @@ public class AuthenticationStepDefinitions {
 
     @Given("the user is on the Register page")
     public void theUserIsOnTheRegisterPage() {
-        driver.get("http://localhost:7000/webpage/create");
-        assertTrue(driver.getCurrentUrl().contains("http://localhost:7000/webpage/create"), "User is not on the Register page");
+        driver.get("http://localhost:7001/webpage/create");
+        assertTrue(driver.getCurrentUrl().contains("http://localhost:7001/webpage/create"), "User is not on the Register page");
     }
 
     @When("the user enters {string} as the username and {string} as the password")
@@ -89,9 +89,9 @@ public class AuthenticationStepDefinitions {
 
     @Given("User is on Login page")
     public void userIsOnLoginPage() {
-        driver.get("http://localhost:7000/webpage/login");
+        driver.get("http://localhost:7001/webpage/login");
         System.out.println("On login page");
-        assertTrue(driver.getCurrentUrl().contains("http://localhost:7000/webpage/login"), "User is not on the Login page");
+        assertTrue(driver.getCurrentUrl().contains("http://localhost:7001/webpage/login"), "User is not on the Login page");
     }
 
     @Given("the user has an active an account with {string} and {string}")

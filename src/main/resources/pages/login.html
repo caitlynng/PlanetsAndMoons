@@ -59,7 +59,7 @@
         <input id="usernameInput" name="username" placeholder="Username" type="text">
         <input id="passwordInput" name="password" placeholder="Password" type="password">
         <input type="submit" value="Login">
-        <a href="http://localhost:7000/webpage/create">Don't have an account? Register</a>
+        <a href="http://localhost:7001/webpage/create">Don't have an account? Register</a>
     </form>
 </div>
 </body>
@@ -81,7 +81,7 @@
 
       const loginBody = JSON.stringify(loginData);
 
-      const response = await fetch('http://localhost:7000/login', {
+      const response = await fetch('http://localhost:7001/login', {
           method: 'POST',
           headers: headersList,
           credentials: 'include',
@@ -92,7 +92,7 @@
         const data = await response.json();
         sessionStorage.setItem("user", data.username);
         sessionStorage.setItem("userId", data.id);
-        window.location.replace("http://localhost:7000/api/webpage/home");
+        window.location.replace("http://localhost:7001/api/webpage/home");
       } else {
         // Login failed
         alert("login attempt failed: please try again");

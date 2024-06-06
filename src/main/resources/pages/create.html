@@ -59,7 +59,7 @@
         <input id="usernameInput" name="username" placeholder="Username" type="text">
         <input id="passwordInput" name="password" placeholder="Password" type="password">
         <input type="submit" value="Create">
-        <a href="http://localhost:7000/webpage/login">Already have an account? Login</a>
+        <a href="http://localhost:7001/webpage/login">Already have an account? Login</a>
     </form>
 </div>
 </body>
@@ -84,7 +84,7 @@
             password: password
         };
 
-        fetch('http://localhost:7000/register', {
+        fetch('http://localhost:7001/register', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json'
@@ -96,7 +96,7 @@
             if (response.status === 201) {
                 // User creation successful
                 alert(`Account created successfully with username "${username}" and password "${password}"`);
-                window.location.replace("http://localhost:7000/webpage/login");
+                window.location.replace("http://localhost:7001/webpage/login");
             } else {
                 // User creation failed
                 alert(`Account creation failed with username "${username}" and password "${password}"`);

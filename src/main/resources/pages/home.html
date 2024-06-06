@@ -367,7 +367,7 @@
                     "Accept": "*/*",
                     "Content-Type": "application/json"
                 };
-                fetch('http://localhost:7000/api/planet', {
+                fetch('http://localhost:7001/api/planet', {
                     method: 'POST',
                     body: bodyJson,
                     headers: headersList,
@@ -416,7 +416,7 @@
                     "Accept": "*/*",
                     "Content-Type": "application/json"
                 };
-                fetch('http://localhost:7000/api/moon', {
+                fetch('http://localhost:7001/api/moon', {
                     method: 'POST',
                     body: bodyJson,
                     headers: headersList,
@@ -446,7 +446,7 @@
 
     async function populateCelestialTable() {
         document.getElementById('celestialTable').innerHTML = '<tr><th>Type</th><th>ID</th><th>Name</th><th>Owner</th></tr>';
-        const response = await fetch('http://localhost:7000/api/planet', {credentials: 'include'});
+        const response = await fetch('http://localhost:7001/api/planet', {credentials: 'include'});
         if (response.ok) {
             const data = await response.json();
             console.log(data);
@@ -463,7 +463,7 @@
                 ownerCell.textContent = planet.ownerId;
             });
         }
-        const moonResponse = await fetch('http://localhost:7000/api/moon', {credentials: 'include'});
+        const moonResponse = await fetch('http://localhost:7001/api/moon', {credentials: 'include'});
         if (moonResponse.ok) {
             const moonData = await moonResponse.json();
             const table = document.getElementById('celestialTable');
@@ -487,9 +487,9 @@
 
         let url;
         if (selectedOption === 'moon') {
-            url = `http://localhost:7000/api/moon/${id}`;
+            url = `http://localhost:7001/api/moon/${id}`;
         } else if (selectedOption === 'planet') {
-            url = `http://localhost:7000/api/planet/${id}`;
+            url = `http://localhost:7001/api/planet/${id}`;
         } else {
             alert('Invalid selection: choose moon or planet to delete');
             return;
@@ -518,10 +518,10 @@
             method: 'DELETE',
             credentials: 'include'
         };
-        const response = await fetch('http://localhost:7000/logout', requestData);
+        const response = await fetch('http://localhost:7001/logout', requestData);
         if (response.status === 200) {
             sessionStorage.clear();
-            window.location.replace("http://localhost:7000/webpage/login");
+            window.location.replace("http://localhost:7001/webpage/login");
         } else {
             alert('Failed to logout');
         }
@@ -537,9 +537,9 @@
         let url;
         const highestPlanetId = getHighestPlanetId();
         if (!isNaN(input) && parseInt(input, 10) <= highestPlanetId) {
-            url = `http://localhost:7000/api/planet/id/${input}`;
+            url = `http://localhost:7001/api/planet/id/${input}`;
         } else {
-            url = `http://localhost:7000/api/planet/name/${input}`;
+            url = `http://localhost:7001/api/planet/name/${input}`;
         }
         const response = await fetch(url, {
             method: 'GET',
@@ -589,9 +589,9 @@
         let url;
         const highestMoonId = getHighestPlanetId();
         if (!isNaN(input) && parseInt(input, 10) <= highestMoonId) {
-            url = `http://localhost:7000/api/moon/id/${input}`;
+            url = `http://localhost:7001/api/moon/id/${input}`;
         } else {
-            url = `http://localhost:7000/api/moon/name/${input}`;
+            url = `http://localhost:7001/api/moon/name/${input}`;
         }
         const response = await fetch(url, {
             method: 'GET',

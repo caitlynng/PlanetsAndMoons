@@ -79,7 +79,7 @@ public class MoonStepDefinitions {
 
     @And("the user is currently logged in")
     public void theUserIsLoggedIn() {
-        driver.get("http://localhost:7000/webpage/login");
+        driver.get("http://localhost:7001/webpage/login");
         authenticationPage.enterUsername("testuser1");
         authenticationPage.enterPassword("validassword");
         authenticationPage.clickLogin();
